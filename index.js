@@ -3,11 +3,19 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const app = express();
 
-mongoose.connect('mongodb://127.0.0.1:27017/todoDB', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => console.log('MongoDB connected'));
+// ✅ Correct MongoDB URI
+// If your password is `sahil@123`, encode it as `sahil%40123`
+const mongoURI = 'mongodb+srv://sahil:sahil%40todo22@cluster0.gw5nmjf.mongodb.net/todo-app?retryWrites=true&w=majority';
 
+mongoose.connect(mongoURI, {
+  // These options are no longer needed in mongoose 7+
+  // useNewUrlParser: true,
+  // useUnifiedTopology: true
+})
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch((err) => console.error("❌ Connection error", err));
+
+// Schema Definition
 const taskSchema = new mongoose.Schema({
   title: String,
   priority: String
@@ -15,10 +23,12 @@ const taskSchema = new mongoose.Schema({
 
 const Task = mongoose.model('Task', taskSchema);
 
+// Middleware
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Routes
 app.get('/', async (req, res) => {
   const todos = await Task.find();
   res.render('index', { todos });
@@ -45,6 +55,7 @@ app.post('/delete', async (req, res) => {
   res.redirect('/');
 });
 
+// Start server
 app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+  console.log('🚀 Server is running on http://localhost:3000');
 });
