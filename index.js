@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const app = express();
 
-// ✅ Correct MongoDB URI
+// Correct MongoDB URI
 // If your password is `sahil@123`, encode it as `sahil%40123`
 const mongoURI = 'mongodb+srv://sahil:sahil%40todo22@cluster0.gw5nmjf.mongodb.net/todo-app?retryWrites=true&w=majority';
 
@@ -12,8 +12,8 @@ mongoose.connect(mongoURI, {
   // useNewUrlParser: true,
   // useUnifiedTopology: true
 })
-  .then(() => console.log("✅ MongoDB Connected"))
-  .catch((err) => console.error("❌ Connection error", err));
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.error("Connection error", err));
 
 // Schema Definition
 const taskSchema = new mongoose.Schema({
@@ -57,5 +57,5 @@ app.post('/delete', async (req, res) => {
 
 // Start server
 app.listen(3000, () => {
-  console.log('🚀 Server is running on http://localhost:3000');
+  console.log('Server is running on http://localhost:3000');
 });

@@ -91,20 +91,45 @@ li {
   gap: 8px;
 }
 
-/* Todo controls */
-li form {
-  flex-direction: row;
+/* View mode layout */
+.view-mode {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.view-mode > div {
+  display: flex;
+  gap: 10px;
+}
+
+/* Edit form layout */
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-form .d-flex {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
-li input[type="text"],
-li select {
+/* Form fields in edit mode */
+.edit-form input[type="text"],
+.edit-form select {
   flex: 1;
+  min-width: 150px;
   padding: 8px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #94a3b8;
+  background-color: #f3f4f6;
 }
 
+/* Buttons styling */
 li button {
   background-color: #10b981;
   border: none;
@@ -112,13 +137,13 @@ li button {
   border-radius: 5px;
   color: white;
   margin-left: 5px;
+  height: 30px;
 }
 
 li button:hover {
   background-color: #059669;
 }
 
-/* Delete button */
 li form:last-child button {
   background-color: #ef4444;
 }
@@ -127,15 +152,38 @@ li form:last-child button:hover {
   background-color: #dc2626;
 }
 
-/* Responsive design */
+/* Utility: Hidden class for JS toggle */
+.d-none {
+  display: none !important;
+}
+
+/* Smooth transitions */
+.edit-form,
+.view-mode {
+  transition: all 0.3s ease;
+}
+
+/* Responsive */
 @media (max-width: 600px) {
   form,
-  li form {
+  li form,
+  .edit-form .d-flex {
     flex-direction: column;
+    align-items: stretch;
   }
 
-  li form button {
-    margin: 5px 0 0 0;
+  .edit-form .d-flex > * {
     width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .view-mode {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .view-mode > div {
+    justify-content: flex-start;
   }
 }

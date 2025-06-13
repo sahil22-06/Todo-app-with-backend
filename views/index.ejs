@@ -1,33 +1,47 @@
 <%- include("partials/header") %>
 
 <div class="container">
-  <form action="/add" method="POST">
-    <input type="text" name="task" placeholder="Add a task" />
-    <select name="priority">
+  <form action="/add" method="POST" class="mb-3 d-flex gap-2">
+    <input type="text" name="task" placeholder="Add a task" class="form-control" />
+    <select name="priority" class="form-select">
       <option value="Low">Low</option>
       <option value="Medium">High</option>
       <option value="High">Urgent</option>
     </select>
-    <button type="submit">Add</button>
+    <button type="submit" class="btn btn-primary">Add</button>
   </form>
 
-  <ul>
+  <ul class="list-group mt-3">
     <% todos.forEach(todo => { %>
-      <li>
-        <form action="/edit" method="POST">
+      <li class="list-group-item" data-id="<%= todo._id %>">
+
+        <!-- View Mode -->
+        <div class="view-mode d-flex justify-content-between align-items-center">
+          <span><strong><%= todo.title %></strong> (<%= todo.priority %>)</span>
+          <div>
+            <button type="button" class="btn btn-success btn-sm edit-btn">Edit</button>
+            <form action="/delete" method="POST" class="d-inline">
+              <input type="hidden" name="id" value="<%= todo._id %>">
+              <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Edit Mode (hidden by default) -->
+        <form class="edit-form d-none mt-2" action="/edit" method="POST">
           <input type="hidden" name="id" value="<%= todo._id %>">
-          <input type="text" name="task" value="<%= todo.title %>">
-          <select name="priority">
-            <option value="Low" <%= todo.priority === 'Low' ? 'selected' : '' %>>Low</option>
-            <option value="Medium" <%= todo.priority === 'Medium' ? 'selected' : '' %>>High</option>
-            <option value="High" <%= todo.priority === 'High' ? 'selected' : '' %>>Urgent</option>
-          </select>
-          <button type="submit">Update</button>
+          <div class="d-flex gap-2">
+            <input type="text" name="task" class="form-control" value="<%= todo.title %>" required />
+            <select name="priority" class="form-select">
+              <option value="Low" <%= todo.priority === 'Low' ? 'selected' : '' %>>Low</option>
+              <option value="Medium" <%= todo.priority === 'Medium' ? 'selected' : '' %>>High</option>
+              <option value="High" <%= todo.priority === 'High' ? 'selected' : '' %>>Urgent</option>
+            </select>
+            <button type="submit" class="btn btn-primary btn-sm update-btn">Update</button>
+            <button type="button" class="btn btn-secondary btn-sm cancel-btn">Cancel</button>
+          </div>
         </form>
-        <form action="/delete" method="POST">
-          <input type="hidden" name="id" value="<%= todo._id %>">
-          <button type="submit">Delete</button>
-        </form>
+
       </li>
     <% }) %>
   </ul>

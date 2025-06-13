@@ -80,12 +80,6 @@ todo-app/
 
 ---
 
-## 📸 Screenshots
-
-> _Add here if you have UI screenshots_
-
----
-
 ## 🧠 Future Enhancements
 
 - 🗃️ Persistent storage with MongoDB

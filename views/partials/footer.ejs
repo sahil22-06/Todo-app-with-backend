@@ -1,5 +1,47 @@
   <footer>
     <p>&copy; 2025 Todo App</p>
   </footer>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const listItems = document.querySelectorAll("li[data-id]");
+
+    listItems.forEach(item => {
+      const editBtn = item.querySelector(".edit-btn");
+      const cancelBtn = item.querySelector(".cancel-btn");
+      const updateBtn = item.querySelector(".update-btn");
+      const viewMode = item.querySelector(".view-mode");
+      const editForm = item.querySelector(".edit-form");
+
+      editBtn?.addEventListener("click", () => {
+        if (!editForm.classList.contains("d-none")) return;
+
+        // Hide all edit forms first
+        listItems.forEach(otherItem => {
+          otherItem.querySelector(".view-mode")?.classList.remove("d-none");
+          otherItem.querySelector(".edit-form")?.classList.add("d-none");
+        });
+
+        // Show this edit form
+        viewMode?.classList.add("d-none");
+        editForm?.classList.remove("d-none");
+      });
+
+      cancelBtn?.addEventListener("click", () => {
+        editForm?.classList.add("d-none");
+        viewMode?.classList.remove("d-none");
+      });
+
+      // Optional: auto-hide edit form on submit (non-AJAX use)
+      editForm?.addEventListener("submit", () => {
+        editForm?.classList.add("d-none");
+        viewMode?.classList.remove("d-none");
+      });
+    });
+  });
+</script>
+
+
+
 </body>
 </html>
