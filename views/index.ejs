@@ -1,16 +1,18 @@
 <%- include("partials/header") %>
 
 <div class="container">
+  <!-- Add Task Form -->
   <form action="/add" method="POST" class="mb-3 d-flex gap-2">
-    <input type="text" name="task" placeholder="Add a task" class="form-control" />
+    <input type="text" name="task" placeholder="Add a task" class="form-control" required />
     <select name="priority" class="form-select">
       <option value="Low">Low</option>
-      <option value="Medium">High</option>
-      <option value="High">Urgent</option>
+      <option value="Medium">Medium</option>
+      <option value="High">High</option>
     </select>
     <button type="submit" class="btn btn-primary">Add</button>
   </form>
 
+  <!-- Todo List -->
   <ul class="list-group mt-3">
     <% todos.forEach(todo => { %>
       <li class="list-group-item" data-id="<%= todo._id %>">
@@ -20,22 +22,22 @@
           <span><strong><%= todo.title %></strong> (<%= todo.priority %>)</span>
           <div>
             <button type="button" class="btn btn-success btn-sm edit-btn">Edit</button>
-            <form action="/delete" method="POST" class="d-inline">
-              <input type="hidden" name="id" value="<%= todo._id %>">
+            
+            <!-- Delete Form (uses DELETE method override) -->
+            <form action="/delete/<%= todo._id %>?_method=DELETE" method="POST" class="d-inline">
               <button class="btn btn-danger btn-sm" type="submit">Delete</button>
             </form>
           </div>
         </div>
 
         <!-- Edit Mode (hidden by default) -->
-        <form class="edit-form d-none mt-2" action="/edit" method="POST">
-          <input type="hidden" name="id" value="<%= todo._id %>">
+        <form class="edit-form d-none mt-2" action="/edit/<%= todo._id %>?_method=PUT" method="POST">
           <div class="d-flex gap-2">
             <input type="text" name="task" class="form-control" value="<%= todo.title %>" required />
             <select name="priority" class="form-select">
               <option value="Low" <%= todo.priority === 'Low' ? 'selected' : '' %>>Low</option>
-              <option value="Medium" <%= todo.priority === 'Medium' ? 'selected' : '' %>>High</option>
-              <option value="High" <%= todo.priority === 'High' ? 'selected' : '' %>>Urgent</option>
+              <option value="Medium" <%= todo.priority === 'Medium' ? 'selected' : '' %>>Medium</option>
+              <option value="High" <%= todo.priority === 'High' ? 'selected' : '' %>>High</option>
             </select>
             <button type="submit" class="btn btn-primary btn-sm update-btn">Update</button>
             <button type="button" class="btn btn-secondary btn-sm cancel-btn">Cancel</button>
@@ -46,5 +48,24 @@
     <% }) %>
   </ul>
 </div>
+
+<!-- Optional JS to toggle edit forms -->
+<script>
+  document.querySelectorAll(".edit-btn").forEach(button => {
+    button.addEventListener("click", function () {
+      const listItem = this.closest("li");
+      listItem.querySelector(".view-mode").classList.add("d-none");
+      listItem.querySelector(".edit-form").classList.remove("d-none");
+    });
+  });
+
+  document.querySelectorAll(".cancel-btn").forEach(button => {
+    button.addEventListener("click", function () {
+      const listItem = this.closest("li");
+      listItem.querySelector(".view-mode").classList.remove("d-none");
+      listItem.querySelector(".edit-form").classList.add("d-none");
+    });
+  });
+</script>
 
 <%- include("partials/footer") %>
