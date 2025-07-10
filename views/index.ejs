@@ -2,8 +2,8 @@
 
 <div class="container">
   <!-- Add Task Form -->
-  <form action="/add" method="POST" class="mb-3 d-flex gap-2">
-    <input type="text" name="task" placeholder="Add a task" class="form-control" required />
+  <form id="addTaskForm" action="/add" method="POST" class="mb-3 d-flex gap-2">
+    <input type="text" name="task" placeholder="Add a task" class="form-control" />
     <select name="priority" class="form-select">
       <option value="Low">Low</option>
       <option value="Medium">Medium</option>
@@ -49,22 +49,38 @@
   </ul>
 </div>
 
-<!-- Optional JS to toggle edit forms -->
+<!-- JavaScript -->
 <script>
-  document.querySelectorAll(".edit-btn").forEach(button => {
-    button.addEventListener("click", function () {
-      const listItem = this.closest("li");
-      listItem.querySelector(".view-mode").classList.add("d-none");
-      listItem.querySelector(".edit-form").classList.remove("d-none");
+  document.addEventListener("DOMContentLoaded", function () {
+    // Toggle to edit mode
+    document.querySelectorAll(".edit-btn").forEach(button => {
+      button.addEventListener("click", function () {
+        const listItem = this.closest("li");
+        listItem.querySelector(".view-mode").classList.add("d-none");
+        listItem.querySelector(".edit-form").classList.remove("d-none");
+      });
     });
-  });
 
-  document.querySelectorAll(".cancel-btn").forEach(button => {
-    button.addEventListener("click", function () {
-      const listItem = this.closest("li");
-      listItem.querySelector(".view-mode").classList.remove("d-none");
-      listItem.querySelector(".edit-form").classList.add("d-none");
+    // Cancel edit mode
+    document.querySelectorAll(".cancel-btn").forEach(button => {
+      button.addEventListener("click", function () {
+        const listItem = this.closest("li");
+        listItem.querySelector(".view-mode").classList.remove("d-none");
+        listItem.querySelector(".edit-form").classList.add("d-none");
+      });
     });
+
+    // Add Task Form Validation (popup on empty input)
+    const form = document.getElementById("addTaskForm");
+    if (form) {
+      form.addEventListener("submit", function (e) {
+        const taskInput = form.querySelector('input[name="task"]');
+        if (!taskInput.value.trim()) {
+          e.preventDefault(); // Stop form submission
+          alert("Please enter a task before submitting.");
+        }
+      });
+    }
   });
 </script>
 
