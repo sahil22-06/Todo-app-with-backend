@@ -2,11 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+require('dotenv').config();
 
 const app = express();
 
 // MongoDB URI
-const mongoURI = 'mongodb+srv://sahil:sahiltodo12@cluster0.gw5nmjf.mongodb.net/todo-app?retryWrites=true&w=majority';
+const mongoURI = process.env.MONGO_URI;
 
 // MongoDB Connection
 mongoose.connect(mongoURI)
