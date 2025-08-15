@@ -1,0 +1,28 @@
+{
+  "name": "todo-with-backend",
+  "version": "1.0.0",
+  "description": "A Todo application with Node.js backend and MongoDB",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["todo", "nodejs", "mongodb", "express"],
+  "author": "sahil shaikh",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongoose": "^8.15.1",
+    "body-parser": "^2.2.0",
+    "method-override": "^3.0.0",
+    "ejs": "^3.1.10",
+    "dotenv": "^17.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

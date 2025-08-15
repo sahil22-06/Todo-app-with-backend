@@ -21,7 +21,8 @@ A dynamic and responsive Todo List web application built using **Node.js**, **Ex
 - **Frontend**: HTML, CSS, Bootstrap, EJS
 - **Backend**: Node.js, Express.js
 - **Templating**: EJS
-- **Storage**: In-memory array or file-based (optional: MongoDB)
+- **Storage**: MongoDB with Mongoose
+- **Environment**: dotenv for configuration
 
 ---
 
@@ -44,12 +45,24 @@ cd todo-app
 npm install
 ```
 
-### 3. Start the server
+### 3. Configure Environment Variables
+Create a `.env` file in the root directory:
+```env
+MONGO_URI=mongodb+srv://<username>:<password>@<cluster-url>/<database>?retryWrites=true&w=majority
+PORT=3000
+NODE_ENV=development
+```
+
+### 4. Start the server
 ```bash
+# Development (with auto-restart)
+npm run dev
+
+# Production
 npm start
 ```
 
-The app will be running at: `http://localhost:3000`
+The app will be running at: `http://localhost:3000` (or the port specified in your environment)
 
 ---
 
@@ -80,12 +93,36 @@ todo-app/
 
 ---
 
+## 🚀 Deployment
+
+### Heroku
+1. Create a new Heroku app
+2. Set environment variables in Heroku dashboard
+3. Deploy using Git:
+   ```bash
+   git add .
+   git commit -m "Deploy to Heroku"
+   git push heroku main
+   ```
+
+### Railway
+1. Connect your GitHub repository
+2. Set environment variables
+3. Deploy automatically
+
+### Vercel
+1. Import your GitHub repository
+2. Set environment variables
+3. Deploy
+
+---
+
 ## 🧠 Future Enhancements
 
-- 🗃️ Persistent storage with MongoDB
 - 🔒 User authentication (login/register)
 - 🌙 Dark mode
 - ⏰ Due date reminders
+- 📊 Task analytics
 
 ---
 
