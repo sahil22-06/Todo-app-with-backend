@@ -8,6 +8,10 @@ const app = express();
 
 // MongoDB URI
 const mongoURI = process.env.MONGO_URI;
+if (!mongoURI) {
+  console.error('Missing MONGO_URI. Create a .env file and set MONGO_URI.');
+  process.exit(1);
+}
 
 // MongoDB Connection
 mongoose.connect(mongoURI)
