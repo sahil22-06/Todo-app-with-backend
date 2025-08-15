@@ -1,2 +1,10 @@
 .env
 
+# Dependencies
+node_modules/
+
+# Lock files (optional, if not needed for deployment)
+package-lock.json
+
+# Others (optional)
+.env
